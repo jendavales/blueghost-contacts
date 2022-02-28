@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints;
 
 /**
+ * @ORM\Table(
  * @ORM\Entity(repositoryClass=ContactRepository::class)
  */
 class Contact
@@ -34,6 +36,7 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Constraints\Email(message="Zadejte platný email")
      */
     private $email;
 
@@ -69,6 +72,11 @@ class Contact
         $this->surname = $surname;
 
         return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->getFirstname() . ' ' . $this->getSurname();
     }
 
     public function getPhone(): ?string

@@ -2,6 +2,7 @@
 
 namespace App\Facade;
 
+use App\Entity\Contact;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,17 @@ class ContactFacade
     public function loadAll(): array
     {
         return $this->contactRepository->findAll();
+    }
+
+    public function findByName(string $firstname, string $surname): ?Contact
+    {
+        return $this->contactRepository->findOneBy(['firstname' => $firstname, 'surname' => $surname]);
+    }
+
+    public function update(Contact $contact)
+    {
+        $this->entityManager->persist($contact);
+        $this->entityManager->flush();
     }
 
     public function delete(int $id): bool

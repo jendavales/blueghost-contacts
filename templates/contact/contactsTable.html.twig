@@ -12,11 +12,11 @@
     <tbody>
     {% for contact in contacts %}
         <tr>
-            <td>{{ contact.getFirstname() }} {{ contact.getSurname() }}</td>
+            <td>{{ contact.getFullName() }}</td>
             <td>{{ contact.getEmail() }}</td>
             <td>{{ contact.getPhone() }}</td>
             <td>{{ contact.getNote() }}</td>
-            <td><a href="#">Upravit</a></td>
+            <td><a href="{{ path('edit', {firstname: contact.getFirstname(), surname: contact.getSurname()})}}">Upravit</a></td>
             <td><a href="{{ path('delete', {id: contact.getId()}) }}">Smazat</a></td>
         </tr>
     {% endfor %}
