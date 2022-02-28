@@ -5,5 +5,10 @@
 {% endblock %}
 
 {% block body %}
-    Hello!
+    <h1>Adresář kontaktů</h1>
+    {% if contacts|length == 0 %}
+        Adresář neobsahuje žádné kontakty
+    {% else %}
+        {{ include('contact/contactsTable.html.twig') }}
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,24 @@
+<table>
+    <thead>
+    <tr>
+        <th>Jméno</th>
+        <th>Email</th>
+        <th>Telefon</th>
+        <th>Poznámka</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.getFirstname() }} {{ contact.getSurname() }}</td>
+            <td>{{ contact.getEmail() }}</td>
+            <td>{{ contact.getPhone() }}</td>
+            <td>{{ contact.getNote() }}</td>
+            <td><a href="#">Upravit</a></td>
+            <td><a href="{{ path('delete', {id: contact.getId()}) }}">Smazat</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
