@@ -26,9 +26,9 @@ class Contact
     /**
      * @ORM\Column(type="string", length=30)
      * @Constraints\Regex(
-     *     pattern="/-/",
-     *     match=false,
-     *     message="Jméno nesmí obsahovat pomlčku"
+     *     pattern="/^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-z]+$/",
+     *     match=true,
+     *     message="Jméno musí obsahovat pouze písmena abecedy"
      *     )
      * @Constraints\Length(
      *      min = 2,
@@ -42,9 +42,9 @@ class Contact
     /**
      * @ORM\Column(type="string", length=30)
      * @Constraints\Regex(
-     *     pattern="/-/",
-     *     match=false,
-     *     message="Jméno nesmí obsahovat pomlčku"
+     *     pattern="/^[ěščřžýáíéóúůďťňĎŇŤŠČŘŽÝÁÍÉÚŮĚÓa-zA-z]+$/",
+     *     match=true,
+     *     message="Jméno musí obsahovat pouze písmena abecedy"
      *     )
      * @Constraints\Length(
      *      min = 2,
