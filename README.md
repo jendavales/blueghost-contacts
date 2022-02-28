@@ -1,4 +1,4 @@
-#Contacts
+# Contacts
 
 Application created as entry test to https://www.blueghost.cz/kariera/phpdev
 
