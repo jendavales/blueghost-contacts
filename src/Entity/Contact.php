@@ -30,6 +30,12 @@ class Contact
      *     match=false,
      *     message="Jméno nesmí obsahovat pomlčku"
      *     )
+     * @Constraints\Length(
+     *      min = 2,
+     *      max = 30,
+     *      minMessage = "Minimální délka je {{ limit }} znaky",
+     *      maxMessage = "Maximální délka je {{ limit }} znaků"
+     * )
      */
     private $firstname;
 
@@ -40,17 +46,35 @@ class Contact
      *     match=false,
      *     message="Jméno nesmí obsahovat pomlčku"
      *     )
+     * @Constraints\Length(
+     *      min = 2,
+     *      max = 30,
+     *      minMessage = "Minimální délka je {{ limit }} znaky",
+     *      maxMessage = "Maximální délka je {{ limit }} znaků"
+     * )
      */
     private $surname;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Constraints\Length(
+     *      min = 9,
+     *      max = 15,
+     *      minMessage = "Minimální délka je {{ limit }} znaků",
+     *      maxMessage = "Maximální délka je {{ limit }} znaků"
+     * )
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Constraints\Email(message="Zadejte platný email")
+     * @Constraints\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Minimální délka je {{ limit }} znaky",
+     *      maxMessage = "Maximální délka je {{ limit }} znaků"
+     * )
      */
     private $email;
 
