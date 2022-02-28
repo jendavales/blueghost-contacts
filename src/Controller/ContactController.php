@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use App\Facade\ContactFacade;
 use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -46,12 +47,7 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->contactFacade->update($contact);
-            $this->addFlash('success', 'Kontakt byl upraven');
-            return $this->redirectToRoute('edit', [
-                'firstname' => $contact->getFirstname(),
-                'surname' => $contact->getSurname()
-            ]);
+            return $this->handleFormSubmit($contact);
         }
 
         return $this->render('contact/edit.html.twig', [
@@ -71,12 +67,7 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->contactFacade->create($contact);
-            $this->addFlash('success', 'Kontakt byl vytvořen');
-            return $this->redirectToRoute('edit', [
-                'firstname' => $contact->getFirstname(),
-                'surname' => $contact->getSurname()
-            ]);
+            return $this->handleFormSubmit($contact, true);
         }
 
         return $this->render('contact/new.html.twig', [
@@ -97,5 +88,19 @@ class ContactController extends AbstractController
             $this->addFlash('success', 'Kontakt byl smazán');
         }
         return $this->redirectToRoute('index');
+    }
+
+    /**
+     * @param Contact $contact
+     * @return RedirectResponse
+     */
+    private function handleFormSubmit(Contact $contact, bool $isNew = false): RedirectResponse
+    {
+        $this->contactFacade->update($contact);
+        $this->addFlash('success', 'Kontakt byl ' . ($isNew ? 'vytvořen' : 'upraven'));
+        return $this->redirectToRoute('edit', [
+            'firstname' => $contact->getFirstname(),
+            'surname' => $contact->getSurname()
+        ]);
     }
 }
