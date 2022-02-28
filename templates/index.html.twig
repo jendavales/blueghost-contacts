@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ parent() }} | Overview
+    {{ parent() }} | Přehled
 {% endblock %}
 
 {% block header %}
@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+    <a href="{{ path('new') }}">Nový kontakt</a>
     {% if contacts|length == 0 %}
         Adresář neobsahuje žádné kontakty
     {% else %}

@@ -5,9 +5,13 @@ namespace App\Entity;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Table(
+ * @UniqueEntity(
+ *   fields={"firstname", "surname"},
+ *   message="Jméno je již existuje"
+ * )
  * @ORM\Entity(repositoryClass=ContactRepository::class)
  */
 class Contact

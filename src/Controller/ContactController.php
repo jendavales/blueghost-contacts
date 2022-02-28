@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Facade\ContactFacade;
 use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,26 +31,55 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @Route("/{firstname}-{surname}", name="edit")
+     * @Route("/kontakt/{firstname}-{surname}", name="edit")
      * @return Response
      */
     public function edit(Request $request, string $firstname, string $surname): Response
     {
         $contact = $this->contactFacade->findByName($firstname, $surname);
+        $name = $contact->getFullName();
         if (is_null($contact)) {
             throw new NotFoundHttpException();
         }
 
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->contactFacade->update($contact);
+            $this->addFlash('success', 'Kontakt byl upraven');
             return $this->redirectToRoute('edit', [
                 'firstname' => $contact->getFirstname(),
                 'surname' => $contact->getSurname()
             ]);
         }
+
         return $this->render('contact/edit.html.twig', [
+            'form' => $form->createView(),
+            'name' => $name,
+        ]);
+    }
+
+    /**
+     * @Route("/kontakt/novy", name="new")
+     * @return Response
+     */
+    public function new(Request $request): Response
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->contactFacade->create($contact);
+            $this->addFlash('success', 'Kontakt byl vytvořen');
+            return $this->redirectToRoute('edit', [
+                'firstname' => $contact->getFirstname(),
+                'surname' => $contact->getSurname()
+            ]);
+        }
+
+        return $this->render('contact/new.html.twig', [
             'form' => $form->createView(),
             'contact' => $contact
         ]);

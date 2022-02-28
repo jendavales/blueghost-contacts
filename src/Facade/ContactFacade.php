@@ -34,6 +34,12 @@ class ContactFacade
         $this->entityManager->flush();
     }
 
+    public function create(Contact $contact)
+    {
+        $this->entityManager->persist($contact);
+        $this->entityManager->flush();
+    }
+
     public function delete(int $id): bool
     {
         $contact = $this->contactRepository->findOneBy(['id' => $id]);
