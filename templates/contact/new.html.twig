@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ parent() }} | Nový kontakt }}
+{% endblock %}
+
+{% block header %}
+    <h1>Nový kontakt</h1>
+{% endblock %}
+
+{% block body %}
+    <a href="{{ path('index') }}">Zpět</a>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

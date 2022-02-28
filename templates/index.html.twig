@@ -1,9 +1,18 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ parent() }} | Overview
+    {{ parent() }} | Přehled
+{% endblock %}
+
+{% block header %}
+    <h1>Adresář kontaktů</h1>
 {% endblock %}
 
 {% block body %}
-    Hello!
+    <a href="{{ path('new') }}">Nový kontakt</a>
+    {% if contacts|length == 0 %}
+        Adresář neobsahuje žádné kontakty
+    {% else %}
+        {{ include('contact/contactsTable.html.twig') }}
+    {% endif %}
 {% endblock %}
