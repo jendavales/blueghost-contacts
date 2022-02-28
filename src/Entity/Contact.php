@@ -25,11 +25,21 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Constraints\Regex(
+     *     pattern="/-/",
+     *     match=false,
+     *     message="Jméno nesmí obsahovat pomlčku"
+     *     )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Constraints\Regex(
+     *     pattern="/-/",
+     *     match=false,
+     *     message="Jméno nesmí obsahovat pomlčku"
+     *     )
      */
     private $surname;
 
